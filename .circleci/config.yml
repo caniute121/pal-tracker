@@ -2,7 +2,7 @@ version: 2
 jobs:
   build:
     docker:
-      - image: 'microsoft/dotnet:2.2-sdk'
+      - image: 'microsoft/dotnet:2.1-sdk'
         environment:
           DEBIAN_FRONTEND: "noninteractive"
     steps:
@@ -19,10 +19,15 @@ jobs:
           root: artifacts
           paths:
             - pal-tracker-*.tgz
-
+# CF_API:'htts://api.'
+# CF_PASSWORD:
+# CF_USERNAME:
+# CF_ORG:
+# CF_SPACE_REVIEW:
+# CF_SPACE_PROD:
   deployToReview:
     docker:
-      - image: 'microsoft/dotnet:2.2-sdk'
+      - image: 'microsoft/dotnet:2.1-sdk'
         environment:
           DEBIAN_FRONTEND: "noninteractive"
           EXTRACT_DEST: /tmp/extracted-archive
@@ -51,8 +56,8 @@ jobs:
           command: |
             cd $EXTRACT_DEST
 
-            cf login -a $CF_API -u "$CF_USERNAME" -p "$CF_PASSWORD" -o "$CF_ORG" -s "$CF_SPACE_REVIEW"
-            cf push -f manifest-$ENVIRONMENT.yml
+            cf login -a htts://api.run.pivotal.io -u "jose_j_thansen@dell.com" -p "Fredin1!" -o "DellEMC_PAL" -s "Jose_j_Thansen@Dell.com"
+            cf push -f manifest-Review.yml
 
   deployToProd:
     docker:
@@ -85,8 +90,8 @@ jobs:
           command: |
             cd $EXTRACT_DEST
 
-            cf login -a $CF_API -u "$CF_USERNAME" -p "$CF_PASSWORD" -o "$CF_ORG" -s "$CF_SPACE_PROD"
-            cf push -f manifest-$ENVIRONMENT.yml
+            cf login -a htts://api.run.pivotal.io -u "jose_j_thansen@dell.com" -p "Fredin1!" -o "DellEMC_PAL" -s "Jose_j_Thansen@Dell.com"
+            cf push -f manifest-production.yml
 
 workflows:
   version: 2
