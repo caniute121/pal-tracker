@@ -14,6 +14,7 @@ namespace PalTrackerTests
         public ManagementIntegrationTest()
         {
             Environment.SetEnvironmentVariable("MYSQL__CLIENT__CONNECTIONSTRING", DbTestSupport.TestDbConnectionString);
+            Environment.SetEnvironmentVariable("MANAGEMENT__ENDPOINTS__PATH", "/cloudfoundryapplication");
             DbTestSupport.ExecuteSql("TRUNCATE TABLE time_entries");
             _testClient = IntegrationTestServer.Start().CreateClient();
         }
